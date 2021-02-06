@@ -1,7 +1,0 @@
-
-CREATE_USER = "CREATE TABLE IF NOT EXISTS user (id SERIAL PRIMARY KEY, title TEXT, owner_username TEXT);"
-
-
-
-CREATE_OPTIONS = "CREATE TABLE IF NOT EXISTS options (id SERIAL PRIMARY KEY, option_text TEXT, poll_id INTEGER);"
-CREATE_VOTES = "CREATE TABLE IF NOT EXISTS votes (username TEXT, option_id INTEGER, vote_timestamp INTEGER);"
