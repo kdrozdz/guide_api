@@ -1,4 +1,4 @@
-from .query.create_tables import(
+from .query.create_tables import (
     CREATE_USER_TABLE,
     CREATE_REPUTATIONS_TABLE,
     CREATE_ADVICES_TABLE,

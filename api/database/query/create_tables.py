@@ -30,4 +30,3 @@ CREATE_REPUTATIONS_TABLE = """CREATE TABLE IF NOT EXISTS reputations (
     created_time REAl NOT NULL,
     UNIQUE (from_user, to_user)
     );"""
-

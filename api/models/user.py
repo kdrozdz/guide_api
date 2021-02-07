@@ -12,7 +12,7 @@ class User:
                  last_name: str = None,
                  email: str = None,
                  location: str = None,
-                 password: str= None,
+                 password: str = None,
                  _id: int = None):
 
         self.id = _id
@@ -25,26 +25,26 @@ class User:
     def __repr__(self) -> str:
         return f"{self.email!r}, {self.location!r}, {self.id!r}"
 
-    def _check_email_in_db(self):
+    def _check_email_in_db(self) -> bool:
         with get_connection() as connection:
-            return bool(user_actions_db.check_email_in_db(connection, self.email))
+            return user_actions_db.check_email_in_db(connection, self.email)
 
-    def _hash_password(self):
+    def _hash_password(self) -> None:
         self.password = pwd_context.hash(self.password)
 
     def _verify_password(self):
         with get_connection() as connection:
             hashed_password = user_actions_db.take_hashed_password_for_user(connection, self.email)
-            return pwd_context.verify(self.password, hashed_password[0])
+            return pwd_context.verify(self.password, hashed_password)
 
-    def authenticate(self):
+    def authenticate(self) -> bool:
         return bool(self._check_email_in_db() and self._verify_password())
 
-    def save(self)-> str:
+    def save(self) -> str:
         if self._check_email_in_db():
             return f"Email: {self.email} is in DB"
 
         with get_connection() as connection:
             self._hash_password()
             user_actions_db.save(connection, self.first_name, self.last_name, self.email, self.location, self.password)
-            return  f"Email: {self.email} was created"
+            return f"Email: {self.email} was created"

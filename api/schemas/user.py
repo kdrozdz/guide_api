@@ -22,4 +22,4 @@ class UserIn(BaseModel):
 
 
 class UserOut(BaseModel):
-    loaction: Location
+    email: EmailStr
