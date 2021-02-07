@@ -19,19 +19,14 @@ class User:
     def __repr__(self) -> str:
         return f"{self.email!r}, {self.location!r}, {self.id!r}"
 
-    """id SERIAL PRIMARY KEY,
-        first_name VARCHAR,
-        last_name VARCHAR,
-        email VARCHAR,
-        loaction VARCHAR,
-        hashed_password VARCHAR,
-        profile SMALLINT,
-        disabled boolean);"""
 
     def _hash_password(self):
         self.password = pwd_context.hash(self.password)
 
     def save(self):
         with get_connection() as connection:
+            if user_actions_db.check_email_in_db(connection,self.email):
+                return f"Email: {self.email} is in DB"
             self._hash_password()
             user_actions_db.save(connection, self.first_name, self.last_name, self.email, self.location, self.password)
+            return  f"Email: {self.email} was created"

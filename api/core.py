@@ -26,14 +26,8 @@ async def welocme() -> dict:
 @app.post("/create_users/")
 async def user_create(model: UserIn) -> dict:
     user = User(**dict(model))
+    return user.save()
 
-    try:
-        user.save()
-
-    except:
-        return {
-            "test": "123"
-        }
 
 
 if __name__ == "__main__":
