@@ -38,7 +38,7 @@ class User:
             return pwd_context.verify(self.password, hashed_password)
 
     def authenticate(self) -> bool:
-        return bool(self._check_email_in_db() and self._verify_password())
+        return self._verify_password()
 
     def save(self) -> str:
         if self._check_email_in_db():
