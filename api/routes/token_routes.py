@@ -9,7 +9,7 @@ from jose import jwt
 from api.schemas.token import Token
 from api.models.user import User
 
-token_router = APIRouter()
+token_router = APIRouter(tags=["Auth",])
 
 
 def create_access_token(data: dict, expires_delta: Optional[timedelta] = None):

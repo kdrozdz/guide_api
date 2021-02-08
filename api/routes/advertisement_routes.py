@@ -8,7 +8,7 @@ from api.models.advertisement import  Advertisement
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
 advertisement_router = APIRouter(dependencies=(Depends(oauth2_scheme),),
-                                tags=["Advertisement"])
+                                tags=["Advertisement",])
 
 
 @advertisement_router.post("/create_advertisement/",)
