@@ -4,7 +4,7 @@ from api.database.cursor import get_cursor
 from api.database.query.user_query import INSERT_USER, CHECK_USER_EMAIL, TAKE_HASHED_PASSWORD_FOR_USER_IN_DB
 
 
-def save(connection, first_name, last_name, email, loaction, password) -> None:
+def save_user(connection, first_name, last_name, email, loaction, password) -> None:
     with get_cursor(connection) as cursor:
         cursor.execute(INSERT_USER, (first_name, last_name, email, loaction, password))
 

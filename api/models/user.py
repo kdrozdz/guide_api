@@ -46,5 +46,6 @@ class User:
 
         with get_connection() as connection:
             self._hash_password()
-            user_actions_db.save(connection, self.first_name, self.last_name, self.email, self.location, self.password)
+            user_actions_db.save_user(connection, self.first_name, self.last_name, self.email,
+                                      self.location, self.password)
             return f"Email: {self.email} was created"

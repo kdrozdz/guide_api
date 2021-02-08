@@ -1,7 +1,7 @@
 from .query.create_tables import (
     CREATE_USER_TABLE,
-    CREATE_REPUTATIONS_TABLE,
-    CREATE_ADVICES_TABLE,
+    CREATE_REPUTATION_TABLE,
+    CREATE_ADVICE_TABLE,
     CREATE_ADVERTISEMENT_TABLE
 )
 
@@ -13,8 +13,8 @@ def create_tables(connection):
     with get_cursor(connection) as cursor:
         cursor.execute(CREATE_USER_TABLE)
         cursor.execute(CREATE_ADVERTISEMENT_TABLE)
-        cursor.execute(CREATE_ADVICES_TABLE)
-        cursor.execute(CREATE_REPUTATIONS_TABLE)
+        cursor.execute(CREATE_ADVICE_TABLE)
+        cursor.execute(CREATE_REPUTATION_TABLE)
 
 
 def run_create_tables():

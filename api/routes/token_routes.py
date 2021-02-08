@@ -11,6 +11,7 @@ from api.models.user import User
 
 token_router = APIRouter()
 
+
 def create_access_token(data: dict, expires_delta: Optional[timedelta] = None):
     to_encode = data.copy()
     if expires_delta:
@@ -21,9 +22,10 @@ def create_access_token(data: dict, expires_delta: Optional[timedelta] = None):
     encoded_jwt = jwt.encode(to_encode, os.environ['SECRET_KEY'], algorithm=os.environ['ALGORITHM'])
     return encoded_jwt
 
+
 @token_router.post("/token", response_model=Token)
 def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends()):
-    user = User(email = form_data.username, password = form_data.password)
+    user = User(email=form_data.username, password=form_data.password)
     if user.authenticate():
         access_token_expires = timedelta(minutes=int(os.environ['ACCESS_TOKEN_EXPIRE_MINUTES']))
 
