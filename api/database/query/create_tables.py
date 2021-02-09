@@ -20,7 +20,7 @@ CREATE_ADVERTISEMENT_TABLE = """CREATE TABLE IF NOT EXISTS advertisement (
 CREATE_ADVICE_TABLE = """CREATE TABLE IF NOT EXISTS advice (
     id SERIAL PRIMARY KEY,
     text VARCHAR NOT NULL,
-    created_time REAl NOT NULL,
+    created_time VARCHAR NOT NULL,
     owner INTEGER NOT NULL REFERENCES users ON DELETE CASCADE,
     advertisement INTEGER NOT NULL REFERENCES advertisement ON DELETE CASCADE
     );"""
@@ -29,6 +29,6 @@ CREATE_REPUTATION_TABLE = """CREATE TABLE IF NOT EXISTS reputation (
     id SERIAL PRIMARY KEY,
     from_user INTEGER NOT NULL REFERENCES users ON DELETE CASCADE,
     to_user INTEGER NOT NULL REFERENCES users ON DELETE CASCADE,
-    created_time REAl NOT NULL,
+    created_time VARCHAR NOT NULL,
     UNIQUE (from_user, to_user)
     );"""

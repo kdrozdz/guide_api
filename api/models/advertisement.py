@@ -19,11 +19,15 @@ class Advertisement:
         self.created_time = str(datetime.utcnow())
 
     def save(self):
-        self._get_created_time_utc()
-        with get_connection() as connection:
-            advertisement_actions_db.save_advertisement(connection,
+        try:
+            self._get_created_time_utc()
+            with get_connection() as connection:
+                advertisement_actions_db.save_advertisement(connection,
                                                         self.text,
                                                         self.created_time,
                                                         self.loaction,
                                                         self.owner,
                                                         self.language)
+            return f"Advertisement was created !"
+        except:
+            return  f"Something went wrong, try again later"

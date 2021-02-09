@@ -37,6 +37,10 @@ class User:
             hashed_password = user_actions_db.take_hashed_password_for_user(connection, self.email)
             return pwd_context.verify(self.password, hashed_password)
 
+    def get_id_from_email(self):
+        with get_connection() as connection:
+            pass
+
     def authenticate(self) -> bool:
         return self._verify_password()
 
