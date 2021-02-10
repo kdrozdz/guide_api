@@ -37,6 +37,10 @@ class User:
             hashed_password = user_actions_db.take_hashed_password_for_user(connection, self.email)
             return pwd_context.verify(self.password, hashed_password)
 
+    def get_id_from_email(self):
+        with get_connection() as connection:
+            pass
+
     def authenticate(self) -> bool:
         return self._verify_password()
 
@@ -46,5 +50,6 @@ class User:
 
         with get_connection() as connection:
             self._hash_password()
-            user_actions_db.save(connection, self.first_name, self.last_name, self.email, self.location, self.password)
+            user_actions_db.save_user(connection, self.first_name, self.last_name, self.email,
+                                      self.location, self.password)
             return f"Email: {self.email} was created"

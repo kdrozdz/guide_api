@@ -3,7 +3,8 @@ from api.schemas.user import UserIn
 
 from api.models.user import User
 
-user_router = APIRouter()
+user_router = APIRouter(tags=["User",])
+
 
 @user_router.post("/registre_users/")
 async def user_create(model: UserIn) -> str:
