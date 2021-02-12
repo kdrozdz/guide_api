@@ -3,9 +3,10 @@ from datetime import datetime
 from api.database.connection import get_connection
 from api.database.actions import advice_actions_db
 
+
 class Advice:
-    def __init__(self, _id: str = None, text: str = None, created_time: str = None,
-                owner: int = None, advertisement: int = None):
+    def __init__(self, _id: str = None, text: str = None, created_time: str = None, owner: int = None,
+                 advertisement: int = None):
         self.id = _id
         self.text = text
         self.created_time = created_time

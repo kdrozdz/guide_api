@@ -5,10 +5,10 @@ from api.schemas.advice import AdviceIn
 from api.models.advice import Advice
 
 
-advice_router = APIRouter(tags=["Advice",], dependencies=(Depends(oauth2_scheme),))
+advice_router = APIRouter(tags=["Advice", ], dependencies=(Depends(oauth2_scheme),))
 
 
 @advice_router.post("/create_advice/")
-async def user_create(model: AdviceIn) -> str:
+async def create_advice(model: AdviceIn) -> str:
     advice = Advice(**dict(model))
     return advice.save()
