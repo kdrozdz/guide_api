@@ -5,7 +5,7 @@ from fastapi import FastAPI
 
 from dotenv import load_dotenv
 
-from api.routes.advertisement_routes import advertisement_router
+from api.routes.announcement_routes import announcement_router
 from api.routes.advice_routers import advice_router
 from api.routes.user_routes import user_router
 from api.routes.reputation_routes import reputation_router
@@ -19,7 +19,7 @@ if os.environ["DATABASE_CREATE_TABLE"]:
     run_create_tables()
 
 app = FastAPI()
-app.include_router(advertisement_router)
+app.include_router(announcement_router)
 app.include_router(advice_router)
 app.include_router(user_router)
 app.include_router(reputation_router)
