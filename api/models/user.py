@@ -27,13 +27,13 @@ class User:
         self.email = email
         self.location = location
         self.password = password
+        self.response_from_db = None
 
-
-    @staticmethod
-    def get_all_users_order_by(order_by='location'):
+    def get_all_users_order_by(self, order_by='location'):
         with get_connection() as connection:
-            all_users = MapperObj(get_all_users_order_by(connection, order_by), mapping_schemas.GET_ALL_USERS_ORDER_BY)
-            return all_users.get_list_of_dict_with_location_name()
+            self.response_from_db = get_all_users_order_by(connection, order_by)
+        all_users = MapperObj(self.response_from_db, mapping_schemas.GET_ALL_USERS_ORDER_BY, location_name=True)
+        return all_users.get_list_of_dict()
 
     def __repr__(self) -> str:
         return f"{self.email!r}, {self.location!r}, {self.id!r}"
@@ -52,7 +52,7 @@ class User:
 
     def get_user_all_info(self):
         with get_connection() as connection:
-            user_obj = get_user_all_info(connection, self.email)
+            user_obj= get_user_all_info(connection, self.email)
             user_obj[-1] = get_name_of_location(user_obj[-1])
             return user_obj
 

@@ -2,26 +2,41 @@ from api.const import get_name_of_location
 
 
 class MapperObj:
-    def __init__(self, list_of_tupels, object_schema):
-        self.list_of_tupels = list_of_tupels
+    def __init__(self, raw_data, object_schema, single=False, location_name=False):
+        self.raw_data = raw_data
         self.object_schema = object_schema
+        self.single = single
+        self.location_name = location_name
         self.list_of_dict = []
+        self.single_dict = {}
 
+
+    @staticmethod
+    def _looping_zip(schema, raw_data):
+        my_dict = {}
+        for key, value in zip(schema, raw_data):
+            my_dict[key] = value
+        return my_dict
 
     def _create_list_of_dict(self):
-        for _tuple in self.list_of_tupels:
-            my_dict = {}
-            for key, value in zip(self.object_schema, _tuple):
-                my_dict[key] = value
-            self.list_of_dict.append(my_dict)
-
+        for _tuple in self.raw_data:
+            self.list_of_dict.append(self._looping_zip(self.object_schema, _tuple))
 
     def _get_name_of_location(self):
-        for _obj in self.list_of_dict:
-            _obj['location'] = get_name_of_location(_obj['location'])
+        if self.list_of_dict:
+            for _obj in self.list_of_dict:
+                _obj['location'] = get_name_of_location(_obj['location'])
+        elif self.single_dict:
+            self.single_dict["location"] = get_name_of_location(self.single_dict["location"])
 
+    def get_specifict_dict(self):
+        self.single_dict = self._looping_zip(self.object_schema, self.raw_data)
+        if self.location_name:
+            self._get_name_of_location()
+        return self.single_dict
 
-    def get_list_of_dict_with_location_name(self):
+    def get_list_of_dict(self):
         self._create_list_of_dict()
-        self._get_name_of_location()
+        if self.location_name :
+            self._get_name_of_location()
         return self.list_of_dict
