@@ -15,5 +15,5 @@ GET_USER_ALL_INFO = """
 """
 
 GET_ALL_USERS_ORDER_BY = """
-    SELECT first_name, last_name, email, location  FROM users WHERE disabled = false ORDER BY loaction ASC;
+    SELECT first_name, last_name, email, location  FROM users WHERE disabled = false ORDER BY location ASC;
 """

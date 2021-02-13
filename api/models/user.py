@@ -32,11 +32,8 @@ class User:
     @staticmethod
     def get_all_users_order_by(order_by='location'):
         with get_connection() as connection:
-            mapper = MapperObj(get_all_users_order_by(connection, order_by), mapping_schemas.GET_ALL_USERS_ORDER_BY)
-            test = mapper.get_list_of_dict_with_location_name()
-            import pdb;
-            pdb.set_trace()
-            return test
+            all_users = MapperObj(get_all_users_order_by(connection, order_by), mapping_schemas.GET_ALL_USERS_ORDER_BY)
+            return all_users.get_list_of_dict_with_location_name()
 
     def __repr__(self) -> str:
         return f"{self.email!r}, {self.location!r}, {self.id!r}"
