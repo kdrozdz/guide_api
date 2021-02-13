@@ -1,6 +1,6 @@
 from api.database.cursor import get_cursor
 from api.database.query.user_query import INSERT_USER, CHECK_USER_EMAIL, GET_USER_ALL_INFO,\
-    TAKE_HASHED_PASSWORD_FOR_USER_IN_DB
+    GET_ALL_USERS_ORDER_BY, TAKE_HASHED_PASSWORD_FOR_USER_IN_DB
 
 
 def save_user(connection, first_name, last_name, email, loaction, password) -> None:
@@ -26,3 +26,9 @@ def get_user_all_info(connection, email) -> list :
         cursor.execute(GET_USER_ALL_INFO, (email,))
         response = cursor.fetchone()
         return list(response)
+
+def get_all_users_order_by(connection, order_by):
+    with get_cursor(connection) as cursor:
+        cursor.execute(GET_ALL_USERS_ORDER_BY, (order_by,))
+        response = cursor.fetchall()
+        return response

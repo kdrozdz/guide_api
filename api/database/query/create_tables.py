@@ -4,7 +4,7 @@ CREATE_USER_TABLE = """CREATE TABLE IF NOT EXISTS users (
     first_name VARCHAR NOT NULL,
     last_name VARCHAR NOT NULL,
     email VARCHAR NOT NULL UNIQUE ,
-    loaction CHAR NOT NULL,
+    location CHAR NOT NULL,
     hashed_password VARCHAR NOT NULL,
     disabled boolean DEFAULT false);"""
 
@@ -12,7 +12,7 @@ CREATE_ADVERTISEMENT_TABLE = """CREATE TABLE IF NOT EXISTS advertisement (
     id SERIAL PRIMARY KEY,
     text VARCHAR NOT NULL,
     created_time VARCHAR NOT NULL,
-    loaction CHAR NOT NULL,
+    location CHAR NOT NULL,
     language VARCHAR NOT NULL,
     owner INTEGER NOT NULL REFERENCES  users ON DELETE CASCADE
     );"""

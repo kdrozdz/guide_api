@@ -13,3 +13,7 @@ TAKE_HASHED_PASSWORD_FOR_USER_IN_DB = """
 GET_USER_ALL_INFO = """
     SELECT first_name, last_name, email, loaction  FROM users WHERE email = %s AND disabled = false;
 """
+
+GET_ALL_USERS_ORDER_BY = """
+    SELECT first_name, last_name, email, loaction  FROM users WHERE disabled = false ORDER BY loaction ASC;
+"""

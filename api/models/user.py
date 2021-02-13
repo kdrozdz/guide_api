@@ -1,10 +1,14 @@
 from api.database.connection import get_connection
-from api.database.actions.user_actions_db import check_email_in_db, get_user_all_info, save_user, \
+from api.database.actions.user_actions_db import check_email_in_db, get_all_users_order_by, get_user_all_info, save_user, \
     take_hashed_password_for_user
 
 from passlib.context import CryptContext
 
 from api.const import get_name_of_location
+
+from api.models.mapper import MapperObj
+
+from api.mapping_schemas import mapping_schemas
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
@@ -23,6 +27,16 @@ class User:
         self.email = email
         self.location = location
         self.password = password
+
+
+    @staticmethod
+    def get_all_users_order_by(order_by='location'):
+        with get_connection() as connection:
+            mapper = MapperObj(get_all_users_order_by(connection, order_by), mapping_schemas.GET_ALL_USERS_ORDER_BY)
+            test = mapper.get_list_of_dict_with_location_name()
+            import pdb;
+            pdb.set_trace()
+            return test
 
     def __repr__(self) -> str:
         return f"{self.email!r}, {self.location!r}, {self.id!r}"
