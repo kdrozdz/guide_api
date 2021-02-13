@@ -1,5 +1,8 @@
+from typing import List
 from pydantic import BaseModel, Field
+
 from .user import LocationIn
+from ..schemas.answer import AnswerOut
 
 
 class AnnouncementIn(BaseModel):
@@ -9,5 +12,10 @@ class AnnouncementIn(BaseModel):
     owner: int
 
 class AnnouncementOut(AnnouncementIn):
-    location: str
     id: str
+    text: str
+    created_time: str
+    location: str
+    language: str
+    owner: str
+    answers: List[AnswerOut]
