@@ -3,9 +3,9 @@ from api.database.query.user_query import INSERT_USER, CHECK_USER_EMAIL, GET_USE
     GET_ALL_USERS_ORDER_BY, TAKE_HASHED_PASSWORD_FOR_USER_IN_DB
 
 
-def save_user(connection, first_name, last_name, email, loaction, password) -> None:
+def save_user(connection, first_name, last_name, email, location, password) -> None:
     with get_cursor(connection) as cursor:
-        cursor.execute(INSERT_USER, (first_name, last_name, email, loaction, password))
+        cursor.execute(INSERT_USER, (first_name, last_name, email, location, password))
 
 
 def check_email_in_db(connection, email) -> bool:
