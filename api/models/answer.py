@@ -1,10 +1,10 @@
 from datetime import datetime
 
 from api.database.connection import get_connection
-from api.database.actions import advice_actions_db
+from api.database.actions import answer_actions_db
 
 
-class Advice:
+class Answer:
     def __init__(self, _id: str = None, text: str = None, created_time: str = None, owner: int = None,
                  announcement: int = None):
         self.id = _id
@@ -20,7 +20,7 @@ class Advice:
         try:
             self._get_created_time_utc()
             with get_connection() as connection:
-                advice_actions_db.save_advice(connection, self.text, self.created_time, self.owner, self.announcement)
-            return f"Advice was created !"
+                answer_actions_db.save_answer(connection, self.text, self.created_time, self.owner, self.announcement)
+            return f"Answer was created !"
         except:
             return f"Something went wrong, try again later"
