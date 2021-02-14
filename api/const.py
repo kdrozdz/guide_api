@@ -18,3 +18,10 @@ MAINLY_CITIES = (
     ("17", "Wrocław"),
     ("18", "Zielona Góra"),
 )
+
+
+def get_name_of_location(city_id):
+    for _id, city_name in MAINLY_CITIES:
+        if _id == city_id:
+            return city_name
+

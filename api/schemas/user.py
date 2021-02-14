@@ -4,22 +4,30 @@ from aenum import StrEnum, extend_enum
 from api.const import MAINLY_CITIES
 
 
-class Location(StrEnum):
+class LocationIn(StrEnum):
     pass
 
 
 for key, value in MAINLY_CITIES:
 
-    extend_enum(Location, key, key)
+    extend_enum(LocationIn, key, key)
+
 
 
 class UserIn(BaseModel):
     first_name: str = Field(..., min_length=2, max_length=32)
     last_name: str = Field(..., min_length=2, max_length=32)
     password: str = Field(..., min_length=4, max_length=16)
-    location: Location
+    location: LocationIn
     email: EmailStr
 
 
-class UserOut(BaseModel):
+class UserInformation(BaseModel):
+    first_name: str = Field(..., min_length=2, max_length=32)
+    last_name: str = Field(..., min_length=2, max_length=32)
+    location: str
+    email: EmailStr
+
+
+class UserEmail(BaseModel):
     email: EmailStr

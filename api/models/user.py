@@ -1,8 +1,14 @@
 from api.database.connection import get_connection
-from api.database.actions import user_actions_db
+from api.database.actions.user_actions_db import check_email_in_db, get_all_users_order_by, get_user_all_info, save_user, \
+    take_hashed_password_for_user
 
 from passlib.context import CryptContext
 
+from api.const import get_name_of_location
+
+from api.models.mapper import MapperObj
+
+from api.mapping_schemas import mapping_schemas
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
@@ -21,25 +27,34 @@ class User:
         self.email = email
         self.location = location
         self.password = password
+        self.response_from_db = None
+
+    def get_all_users_order_by(self, order_by='location'):
+        with get_connection() as connection:
+            self.response_from_db = get_all_users_order_by(connection, order_by)
+        all_users = MapperObj(self.response_from_db, mapping_schemas.GET_ALL_USERS_ORDER_BY, location_name=True)
+        return all_users.get_list_of_dict()
 
     def __repr__(self) -> str:
         return f"{self.email!r}, {self.location!r}, {self.id!r}"
 
     def _check_email_in_db(self) -> bool:
         with get_connection() as connection:
-            return user_actions_db.check_email_in_db(connection, self.email)
+            return check_email_in_db(connection, self.email)
 
     def _hash_password(self) -> None:
         self.password = pwd_context.hash(self.password)
 
     def _verify_password(self):
         with get_connection() as connection:
-            hashed_password = user_actions_db.take_hashed_password_for_user(connection, self.email)
+            hashed_password = take_hashed_password_for_user(connection, self.email)
             return pwd_context.verify(self.password, hashed_password)
 
-    def get_id_from_email(self):
+    def get_user_all_info(self):
         with get_connection() as connection:
-            pass
+            user_obj= get_user_all_info(connection, self.email)
+            user_obj[-1] = get_name_of_location(user_obj[-1])
+            return user_obj
 
     def authenticate(self) -> bool:
         return self._verify_password()
@@ -50,6 +65,5 @@ class User:
 
         with get_connection() as connection:
             self._hash_password()
-            user_actions_db.save_user(connection, self.first_name, self.last_name, self.email,
-                                      self.location, self.password)
+            save_user(connection, self.first_name, self.last_name, self.email, self.location, self.password)
             return f"Email: {self.email} was created"
