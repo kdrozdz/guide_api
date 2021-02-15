@@ -6,11 +6,11 @@ from fastapi import APIRouter, Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordRequestForm
 from jose import jwt
 
-from api.schemas.token import Token
+from ..schemas.token import Token
 
-from api.schemas.user import UserIn
+from ..schemas.user import UserIn
 
-from api.models.user import User
+from ..models.user import User
 
 
 token_register_router = APIRouter(tags=["Auth-Reg", ])

@@ -4,9 +4,7 @@ from fastapi import APIRouter, Body, HTTPException
 
 from ..schemas.announcement import AnnouncementIn, AnnouncementOut, LocationOrOwner, ValueLocationOrOwner, \
     AnnouncementListOut
-
 from ..models.announcement import Announcement
-
 from ..const import MESSAGE_400
 
 announcement_router = APIRouter(tags=["Announcement", ])
