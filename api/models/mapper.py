@@ -29,7 +29,7 @@ class MapperObj:
             self.single_dict["location"] = get_name_of_location(self.single_dict["location"])
 
     def get_specifict_dict(self):
-        self.single_dict = self._looping_zip(self.object_schema, self.raw_data)
+        self.single_dict = self._looping_zip(self.object_schema, self.raw_data[0])
         if self.location_name:
             self._get_name_of_location()
         return self.single_dict

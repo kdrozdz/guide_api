@@ -3,7 +3,8 @@ from datetime import datetime
 from api.database.connection import get_connection
 from api.database.actions import announcement_actions_db, answer_actions_db
 from api.models.mapper import MapperObj
-from api.mapping_schemas.mapping_schemas import GET_SPECIFIC_ANNOUNCEMENT, GET_ALL_ANSWERS_FOR_ANNOUNCEMENT
+from api.mapping_schemas.mapping_schemas import GET_SPECIFIC_ANNOUNCEMENT,\
+    GET_ALL_ANSWERS_FOR_ANNOUNCEMENT, GET_LIST_OF_ANNOUNCEMENT
 
 class Announcement:
     def __init__(self, _id: str = None, text: str = None, created_time: str = None,
@@ -18,11 +19,11 @@ class Announcement:
         self.announcement_for_db = None
         self.answer_for_db = None
 
+
     def _get_created_time_utc(self):
         self.created_time = str(datetime.utcnow())
 
     def get_specific_announcement(self):
-
         try:
             with get_connection() as connection:
                 self.announcement_for_db = announcement_actions_db.get_specific_announcement(connection, self.id)
@@ -35,6 +36,24 @@ class Announcement:
             announcement_dict["answers"] = answer_mapper_obj.get_list_of_dict()
 
             return announcement_dict
+        except:
+            pass
+
+
+    def get_list_of_announcement_location_or_owner(self, value_location_or_owner, location_or_owner):
+        try:
+            with get_connection() as connection:
+               self.announcement_for_db = announcement_actions_db.get_list_of_announcement(connection,
+                                                                                           value_location_or_owner,
+                                                                                           location_or_owner)
+            if self.announcement_for_db:
+                announcement_mapper_obj = MapperObj(self.announcement_for_db, GET_LIST_OF_ANNOUNCEMENT, location_name=True)
+                if len(self.announcement_for_db) > 1:
+                    return announcement_mapper_obj.get_list_of_dict()
+                else:
+                    return announcement_mapper_obj.get_specifict_dict()
+            else:
+                return []
         except:
             pass
 
