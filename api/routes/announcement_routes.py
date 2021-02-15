@@ -1,9 +1,6 @@
 from typing import List
 
-from fastapi import APIRouter, Body, Depends
-from pydantic import EmailStr
-
-from api.authorization import oauth2_scheme
+from fastapi import APIRouter, Body
 
 from api.schemas.announcement import AnnouncementIn, AnnouncementOut
 

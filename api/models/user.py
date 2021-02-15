@@ -52,7 +52,7 @@ class User:
 
     def get_user_all_info(self):
         with get_connection() as connection:
-            user_obj= get_user_all_info(connection, self.email)
+            user_obj = get_user_all_info(connection, self.email)
             user_obj[-1] = get_name_of_location(user_obj[-1])
             return user_obj
 

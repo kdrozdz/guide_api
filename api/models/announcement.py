@@ -43,7 +43,7 @@ class Announcement:
             self._get_created_time_utc()
             with get_connection() as connection:
                 announcement_actions_db.save_announcement(connection, self.text, self.created_time, self.location,
-                self.owner, self.language)
+                    self.owner, self.language)
             return f"Announcement was created !"
         except:
             return  f"Something went wrong, try again later"

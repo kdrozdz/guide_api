@@ -9,10 +9,10 @@ class AnnouncementIn(BaseModel):
     text: str = Field(..., min_length=4, max_length=128)
     language: str= Field(..., min_length=4, max_length=16)
     location: LocationIn
-    owner: int
+    owner: str
 
 class AnnouncementOut(AnnouncementIn):
-    id: str
+    id: int
     text: str
     created_time: str
     location: str

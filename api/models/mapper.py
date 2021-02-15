@@ -2,10 +2,9 @@ from api.const import get_name_of_location
 
 
 class MapperObj:
-    def __init__(self, raw_data, object_schema, single=False, location_name=False):
+    def __init__(self, raw_data, object_schema, location_name=False):
         self.raw_data = raw_data
         self.object_schema = object_schema
-        self.single = single
         self.location_name = location_name
         self.list_of_dict = []
         self.single_dict = {}
