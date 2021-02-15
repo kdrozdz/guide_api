@@ -27,4 +27,4 @@ app.include_router(token_register_router)
 
 
 if __name__ == "__main__":
-    uvicorn.run("core:app", host="localhost", port=8001, reload=True, debug=True, workers=2)
+    uvicorn.run("core:app", host="localhost", port=8002, reload=True, debug=True, workers=2)

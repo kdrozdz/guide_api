@@ -24,3 +24,6 @@ def get_name_of_location(city_id:str):
     for _id, city_name in MAINLY_CITIES:
         if _id == city_id:
             return city_name
+
+
+MESSAGE_400 = "Check your request data"

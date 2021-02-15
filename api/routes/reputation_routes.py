@@ -1,4 +1,5 @@
-from fastapi import APIRouter, Depends
+
+from fastapi import APIRouter, Depends, HTTPException
 
 from api.schemas.reputation import ReputationIn
 from api.models.reputation import Reputation
@@ -10,5 +11,8 @@ reputation_router = APIRouter(tags=["Reputation", ], dependencies=(Depends(oauth
 
 @reputation_router.post("/create_reputation/")
 def create_reputation(model: ReputationIn) -> str:
-    reputation = Reputation(**dict(model))
-    return reputation.save()
+    try:
+        reputation = Reputation(**dict(model))
+        return reputation.save()
+    except:
+        raise HTTPException(status_code=400 , detail="Check your request data ")
