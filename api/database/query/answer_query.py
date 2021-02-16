@@ -8,3 +8,8 @@ SELECT text, created_time, owner FROM answer
 WHERE announcement = %s
 ORDER BY id DESC
 ;"""
+
+DELETE_ANSWER = """
+DELETE FROM answer
+WHERE id = %s  
+"""
