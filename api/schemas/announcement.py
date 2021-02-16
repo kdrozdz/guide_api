@@ -23,7 +23,7 @@ class AnnouncementOut(AnnouncementIn):
     id: int
     created_time: str
     answers: List[AnswerOut]
-
+    location: str
 
 class LocationOrOwner (str, Enum):
     location = "location"

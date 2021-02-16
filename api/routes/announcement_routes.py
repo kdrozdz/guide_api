@@ -20,7 +20,7 @@ async def create_announcement(model: AnnouncementIn) -> str:
 
 
 @announcement_router.get("/get_announcement/", response_model=AnnouncementOut)
-async def get_announcement(id: str = Body(...)) -> List[AnnouncementOut]:
+async def get_announcement(id: str) -> List[AnnouncementOut]:
     try:
         announcement = Announcement(_id=id)
         return announcement.get_specific_announcement()

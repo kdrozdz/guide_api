@@ -1,4 +1,5 @@
 from datetime import datetime
+from typing import Tuple
 
 from api.database.connection import get_connection
 from api.database.actions import announcement_actions_db, answer_actions_db
@@ -29,11 +30,14 @@ class Announcement:
                 self.announcement_for_db = announcement_actions_db.get_specific_announcement(connection, self.id)
                 self.answer_for_db = answer_actions_db.get_all_answers_for_announcement(connection, self.id)
 
+
             announcement_mapper_obj = MapperObj(self.announcement_for_db, GET_SPECIFIC_ANNOUNCEMENT, location_name=True)
             announcement_dict = announcement_mapper_obj.get_specifict_dict()
 
+
             answer_mapper_obj = MapperObj(self.answer_for_db, GET_ALL_ANSWERS_FOR_ANNOUNCEMENT)
             announcement_dict["answers"] = answer_mapper_obj.get_list_of_dict()
+
 
             return announcement_dict
         except:
