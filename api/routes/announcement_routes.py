@@ -36,3 +36,11 @@ async def get_announcement(location_or_owner: LocationOrOwner, value: ValueLocat
     except:
         raise HTTPException(status_code=400, detail=MESSAGE_400)
 
+@announcement_router.delete("/delete_announcement/",)
+async def delete_announcement(id: str) -> str:
+    try:
+        announcement = Announcement(_id=id)
+        return announcement.delete_announcement()
+    except:
+        raise HTTPException(status_code=400, detail=MESSAGE_400)
+

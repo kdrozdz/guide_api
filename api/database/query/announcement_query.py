@@ -18,3 +18,8 @@ GET_LIST_OF_ANNOUNCEMENT_LOCATION = """
 SELECT language, owner, location FROM announcement
 WHERE location = %s;
 """
+
+DELETE_ANNOUNCEMENT = """
+DELETE FROM announcement
+WHERE id = %s
+"""
