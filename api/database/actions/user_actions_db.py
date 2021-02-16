@@ -12,7 +12,7 @@ def check_email_in_db(connection, email) -> bool:
     with get_cursor(connection) as cursor:
         cursor.execute(CHECK_USER_EMAIL, (email,))
         response = cursor.fetchone()
-        return bool(response)
+        return response
 
 
 def take_hashed_password_for_user(connection, email) -> str:

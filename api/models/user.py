@@ -40,7 +40,7 @@ class User:
 
     def _check_email_in_db(self) -> bool:
         with get_connection() as connection:
-            return check_email_in_db(connection, self.email)
+            return bool(check_email_in_db(connection, self.email))
 
     def _hash_password(self) -> None:
         self.password = pwd_context.hash(self.password)
@@ -57,7 +57,7 @@ class User:
             return user_obj
 
     def authenticate(self) -> bool:
-        return self._verify_password()
+        return self._check_email_in_db() and self._verify_password()
 
     def save(self) -> str:
         if self._check_email_in_db():
