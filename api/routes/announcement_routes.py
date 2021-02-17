@@ -3,7 +3,7 @@ from typing import List, Union
 from fastapi import APIRouter, Body, HTTPException
 
 from ..schemas.announcement import AnnouncementIn, AnnouncementOut, LocationOrOwner, ValueLocationOrOwner, \
-    AnnouncementListOut
+    AnnouncementListOut, AnnouncementUpdateIn
 from ..models.announcement import Announcement
 from ..const import MESSAGE_400
 
@@ -43,4 +43,15 @@ async def delete_announcement(id: str) -> str:
         return announcement.delete_announcement()
     except:
         raise HTTPException(status_code=400, detail=MESSAGE_400)
+
+@announcement_router.put("/update_announcement/",)
+async def delete_announcement(model: AnnouncementUpdateIn) -> any:
+    try:
+        new_model = dict(model)
+        new_model["_id"] = new_model.pop("id")
+        announcement = Announcement(**dict(new_model))
+        return announcement.announcement_update_row()
+    except:
+        raise HTTPException(status_code=400, detail=MESSAGE_400)
+
 

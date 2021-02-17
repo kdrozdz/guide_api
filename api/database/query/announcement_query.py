@@ -23,3 +23,8 @@ DELETE_ANNOUNCEMENT = """
 DELETE FROM announcement
 WHERE id = %s
 """
+"""created_time, language, text, location, _id"""
+UPDATE_ANNOUNCEMENT = """
+UPDATE announcement SET created_time=%s, language=%s, text=%s, location=%s
+WHERE id=%s 
+"""

@@ -57,6 +57,12 @@ class Announcement:
             announcement_actions_db.delete_announcement(connection, self.id)
         return f"Announcement has been deleted"
 
+    def announcement_update_row(self):
+        self._get_created_time_utc()
+        with get_connection() as connection:
+            announcement_actions_db.update_annoucement(connection, self.id, self.location, self.text, self.language,
+                                                       self.created_time)
+        return f"Announcement has been updated"
     def save(self):
         self._get_created_time_utc()
         with get_connection() as connection:

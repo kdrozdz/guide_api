@@ -19,11 +19,15 @@ class AnnouncementIn(BaseModel):
     owner: str
 
 
-class AnnouncementOut(AnnouncementIn):
-    id: int
+class AnnouncementUpdateIn(AnnouncementIn):
+    id: str
     created_time: str
-    answers: List[AnswerOut]
     location: str
+
+
+class AnnouncementOut(AnnouncementUpdateIn):
+    answers: List[AnswerOut]
+
 
 class LocationOrOwner (str, Enum):
     location = "location"
