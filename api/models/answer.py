@@ -27,3 +27,8 @@ class Answer:
             answer_actions_db.save_answer(connection, self.text, self.created_time, self.owner, self.announcement)
         return f"Answer was created !"
 
+    def update_answer(self):
+        self._get_created_time_utc()
+        with get_connection() as connection:
+            answer_actions_db.update_answer(connection, self.text, self.created_time, self.id)
+        return f"Answer has been updated"
