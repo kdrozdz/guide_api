@@ -1,14 +1,17 @@
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, HTTPException
 
-from api.schemas.reputation import ReputationIn
-from api.models.reputation import Reputation
-
-from api.authorization import oauth2_scheme
+from ..authorization import oauth2_scheme
+from ..models.reputation import Reputation
+from ..schemas.reputation import ReputationIn
+from ..const import MESSAGE_400
 
 reputation_router = APIRouter(tags=["Reputation", ], dependencies=(Depends(oauth2_scheme),))
 
 
 @reputation_router.post("/create_reputation/")
 def create_reputation(model: ReputationIn) -> str:
-    reputation = Reputation(**dict(model))
-    return reputation.save()
+    try:
+        reputation = Reputation(**dict(model))
+        return reputation.save()
+    except:
+        raise HTTPException(status_code=MESSAGE_400 , detail="Check your request data ")

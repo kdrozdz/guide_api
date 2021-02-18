@@ -40,7 +40,7 @@ class User:
 
     def _check_email_in_db(self) -> bool:
         with get_connection() as connection:
-            return check_email_in_db(connection, self.email)
+            return bool(check_email_in_db(connection, self.email))
 
     def _hash_password(self) -> None:
         self.password = pwd_context.hash(self.password)
@@ -52,12 +52,12 @@ class User:
 
     def get_user_all_info(self):
         with get_connection() as connection:
-            user_obj= get_user_all_info(connection, self.email)
+            user_obj = get_user_all_info(connection, self.email)
             user_obj[-1] = get_name_of_location(user_obj[-1])
             return user_obj
 
     def authenticate(self) -> bool:
-        return self._verify_password()
+        return self._check_email_in_db() and self._verify_password()
 
     def save(self) -> str:
         if self._check_email_in_db():

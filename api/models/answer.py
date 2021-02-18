@@ -16,11 +16,19 @@ class Answer:
     def _get_created_time_utc(self):
         self.created_time = str(datetime.utcnow())
 
+    def delete_answer(self):
+        with get_connection() as connection:
+            answer_actions_db.delete_answer(connection, self.id)
+        return f"Answer has been deleted"
+
     def save(self):
-        try:
-            self._get_created_time_utc()
-            with get_connection() as connection:
-                answer_actions_db.save_answer(connection, self.text, self.created_time, self.owner, self.announcement)
-            return f"Answer was created !"
-        except:
-            return f"Something went wrong, try again later"
+        self._get_created_time_utc()
+        with get_connection() as connection:
+            answer_actions_db.save_answer(connection, self.text, self.created_time, self.owner, self.announcement)
+        return f"Answer was created !"
+
+    def update_answer(self):
+        self._get_created_time_utc()
+        with get_connection() as connection:
+            answer_actions_db.update_answer(connection, self.text, self.created_time, self.id)
+        return f"Answer has been updated"

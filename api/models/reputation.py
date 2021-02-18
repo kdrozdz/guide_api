@@ -25,16 +25,13 @@ class Reputation:
             return check_user_give_feedback(connection, self.from_user, self.to_user)
 
     def save(self):
-        try:
-            if self._check_different_from_user_to_user():
-                return f"You can't give a feedback to yourself"
-            if self._check_user_gave_feedback():
-                with get_connection() as connection:
-                    update_feedback(connection, self.rating, self.from_user, self.to_user)
-                    return f"Your opinion was update"
-            self._get_created_time_utc()
+        if self._check_different_from_user_to_user():
+            return f"You can't give a feedback to yourself"
+        if self._check_user_gave_feedback():
             with get_connection() as connection:
-                save_reputation(connection, self.from_user, self.to_user, self.created_time, self.rating, self.text)
-                return f"Your feedback was created !"
-        except:
-            return f"Something went wrong, try again later"
+                update_feedback(connection, self.rating, self.from_user, self.to_user)
+                return f"Your opinion was update"
+        self._get_created_time_utc()
+        with get_connection() as connection:
+            save_reputation(connection, self.from_user, self.to_user, self.created_time, self.rating, self.text)
+            return f"Your feedback was created !"
