@@ -20,8 +20,8 @@ def create_reputation(model: ReputationIn) -> str:
 
 @reputation_router.post("/get_reputations/")
 def get_reputations(email: UserEmail) -> List[ReputationOut]:
-    # try:
+    try:
         reputation = Reputation(to_user=email)
         return reputation.get_reputations()
-    # except:
-    #     raise HTTPException(status_code=MESSAGE_400 , detail="Check your request data ")
+    except:
+        raise HTTPException(status_code=MESSAGE_400 , detail="Check your request data ")
