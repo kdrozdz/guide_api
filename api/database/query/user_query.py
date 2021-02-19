@@ -11,8 +11,13 @@ TAKE_HASHED_PASSWORD_FOR_USER_IN_DB = """
 """
 
 GET_USER_ALL_INFO = """
-    SELECT first_name, last_name, email, location  FROM users WHERE email = %s AND disabled = false;
-"""
+    SELECT users.email, users.first_name, users.last_name, users.location,
+     AVG(reputation.rating )::numeric(10,2), COUNT(reputation.rating)
+FROM users
+JOIN reputation ON users.email = reputation.to_user
+WHERE users.email = %s
+GROUP BY users.email
+;"""
 
 GET_ALL_USERS_ORDER_BY = """
     SELECT first_name, last_name, email, location  FROM users WHERE disabled = false ORDER BY location;

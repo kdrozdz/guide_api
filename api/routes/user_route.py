@@ -1,17 +1,17 @@
 from typing import List
 
 from fastapi import APIRouter, Body, HTTPException
-from api.schemas.user import UserEmail, UserInformation
+from api.schemas.user import UserEmail, UserInformation, AllUserInformation
 
 from api.models.user import User
 
 user_router = APIRouter(tags=["User", ])
 
 
-@user_router.post("/get_user/", response_model=UserInformation)
-async def get_user(email: UserEmail) -> UserInformation:
+@user_router.post("/get_user/", response_model=AllUserInformation)
+async def get_user(email: UserEmail) -> AllUserInformation:
     try:
-        user = User(**dict(email))
+        user = User(email=email)
         return user.get_user_all_info()
     except:
         raise HTTPException(status_code=400 , detail="Check your request data ")
