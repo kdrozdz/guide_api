@@ -31,6 +31,6 @@ CREATE_REPUTATION_TABLE = """CREATE TABLE IF NOT EXISTS reputation (
     text VARCHAR,
     from_user VARCHAR NOT NULL REFERENCES users ON DELETE CASCADE,
     to_user VARCHAR NOT NULL REFERENCES users ON DELETE CASCADE,
-    created_time DATE NOT NULL,
+    created_time VARCHAR NOT NULL,
     UNIQUE (from_user, to_user)
     );"""
