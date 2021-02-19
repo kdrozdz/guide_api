@@ -1,11 +1,14 @@
 from datetime import datetime
 
-from api.database.connection import get_connection
-from api.database.actions.reputation_actions_db import  check_user_give_feedback, save_reputation, update_feedback
-
+from ..database.connection import get_connection
+from ..database.actions.reputation_actions_db import  check_user_give_feedback, save_reputation, update_feedback,\
+    get_reputations_for_user
+from ..models.mapper import MapperObj
+from ..schemas.user import UserEmail
+from  ..mapping_schemas.mapping_schemas import GET_REPUTATIONS_FOR_USER
 
 class Reputation:
-    def __init__(self, _id: str = None, from_user: int = None, to_user: int = None,
+    def __init__(self, _id: str = None, from_user: int = None, to_user: UserEmail = None,
                  created_time: str = None, rating: int = None, text: str = None):
         self.id = _id
         self.from_user = from_user
@@ -13,6 +16,7 @@ class Reputation:
         self.created_time = created_time
         self.rating = rating
         self.text = text
+        self.answer_from_db = []
 
     def _get_created_time_utc(self):
         self.created_time = str(datetime.utcnow())
@@ -35,3 +39,12 @@ class Reputation:
         with get_connection() as connection:
             save_reputation(connection, self.from_user, self.to_user, self.created_time, self.rating, self.text)
             return f"Your feedback was created !"
+
+    def get_reputations(self):
+        with get_connection() as connection:
+            self.answer_from_db = get_reputations_for_user(connection, self.to_user.email)
+
+        if self.answer_from_db:
+            all_reputations = MapperObj(self.answer_from_db, GET_REPUTATIONS_FOR_USER)
+            return all_reputations.get_list_of_dict()
+        return []
