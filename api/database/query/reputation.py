@@ -7,3 +7,7 @@ SELECT id FROM reputation WHERE from_user=%s AND to_user=%s ;"""
 
 UPDATE_REPUTATION = """
 UPDATE reputation SET rating=%s WHERE from_user=%s AND to_user=%s ;"""
+
+GET_REPUTATIONS_FOR_USER = """
+SELECT rating, text, from_user, created_time FROM reputation WHERE to_user=%s;
+"""

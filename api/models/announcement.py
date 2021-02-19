@@ -18,7 +18,7 @@ class Announcement:
         self.owner = owner
         self.language = language
         self.announcement_for_db = None
-        self.answer_for_db = None
+        self.answer_for_db = []
 
 
     def _get_created_time_utc(self):
@@ -36,7 +36,7 @@ class Announcement:
             announcement_dict = announcement_mapper_obj.get_specifict_dict()
             announcement_dict["answers"] = answer_mapper_obj.get_list_of_dict()
             return announcement_dict
-        return []
+        return self.announcement_for_db
 
     def get_list_of_announcement_location_or_owner(self, value_location_or_owner, location_or_owner):
         with get_connection() as connection:
@@ -63,6 +63,7 @@ class Announcement:
             announcement_actions_db.update_annoucement(connection, self.id, self.location, self.text, self.language,
                                                        self.created_time)
         return f"Announcement has been updated"
+
     def save(self):
         self._get_created_time_utc()
         with get_connection() as connection:

@@ -7,6 +7,7 @@ from api.const import get_name_of_location
 
 class MapperObj:
     created_time = "created_time"
+    average= "average"
     list_of_dict = []
     single_dict = {}
 
@@ -27,6 +28,8 @@ class MapperObj:
         for key, value in zip(schema, raw_data):
             if key == self.created_time:
                 my_dict[key] = self._get_time_with_utc(value)
+            elif key == self.average:
+                my_dict[key] = str(value)
             else:
                 my_dict[key] = value
         return my_dict
@@ -46,6 +49,7 @@ class MapperObj:
         self.single_dict = self._looping_zip(self.object_schema, self.raw_data)
         if self.location_name:
             self._get_name_of_location()
+        import pdb; pdb.set_trace()
         return self.single_dict
 
     def get_list_of_dict(self):
