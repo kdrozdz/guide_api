@@ -1,11 +1,13 @@
 from datetime import datetime
 
+from pydantic import EmailStr
+
 from api.database.connection import get_connection
 from api.database.actions import answer_actions_db
 
 
 class Answer:
-    def __init__(self, _id: str = None, text: str = None, created_time: str = None, owner: int = None,
+    def __init__(self, _id: int = None, text: str = None, created_time: str = None, owner: EmailStr = None,
                  announcement: int = None):
         self.id = _id
         self.text = text
@@ -30,5 +32,5 @@ class Answer:
     def update_answer(self):
         self._get_created_time_utc()
         with get_connection() as connection:
-            answer_actions_db.update_answer(connection, self.text, self.created_time, self.id)
+            answer_actions_db.update_answer(connection, self.id, self.text, self.created_time)
         return f"Answer has been updated"

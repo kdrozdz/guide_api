@@ -1,16 +1,19 @@
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, EmailStr, Field
 
 
 class AbsAnswer(BaseModel):
     text: str = Field(..., min_length=4, max_length=128)
-    owner: str
+    owner: EmailStr
+
 
 class AnswerIn(AbsAnswer):
     announcement: int
 
+
 class AnswerOut(AbsAnswer):
     created_time: str
 
+
 class AnswerPut(BaseModel):
-    id: str
+    id: int
     text: str = Field(..., min_length=4, max_length=128)
