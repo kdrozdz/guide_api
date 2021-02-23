@@ -1,7 +1,9 @@
 from typing import List
 
+from pydantic import EmailStr
+
 from fastapi import APIRouter, Body, HTTPException
-from api.schemas.user import UserEmail, UserInformation, UserAllInformation
+from api.schemas.user import UserInformation, UserAllInformation
 
 from api.models.user import User
 
@@ -9,7 +11,7 @@ user_router = APIRouter(tags=["User", ])
 
 
 @user_router.post("/get_user/", response_model=UserAllInformation)
-async def get_user(email: UserEmail) -> UserAllInformation:
+async def get_user(email: EmailStr) -> UserAllInformation:
     try:
         user = User(email=email)
         return user.get_user_all_info()

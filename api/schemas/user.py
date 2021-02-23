@@ -29,9 +29,5 @@ class UserInformation(BaseModel):
 
 
 class UserAllInformation(UserInformation):
-    average: str
-    ratings: str
-
-
-class UserEmail(BaseModel):
-    email: EmailStr
+    average: float
+    ratings: int

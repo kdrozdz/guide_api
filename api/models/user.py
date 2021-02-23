@@ -1,3 +1,5 @@
+from pydantic import EmailStr
+
 from typing import List
 
 from passlib.context import CryptContext
@@ -7,7 +9,7 @@ from ..database.actions.user_actions_db import check_email_in_db, get_all_users_
     take_hashed_password_for_user
 from ..mapping_schemas import mapping_schemas
 from ..models.mapper import MapperObj
-from ..schemas.user import UserEmail, UserAllInformation
+from ..schemas.user import UserAllInformation
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
@@ -15,7 +17,7 @@ pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 class User:
     def __init__(self, first_name: str = None,
                  last_name: str = None,
-                 email: UserEmail = None,
+                 email: EmailStr = None,
                  location: str = None,
                  password: str = None,
                  _id: int = None):
