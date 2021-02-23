@@ -1,14 +1,16 @@
+from typing import List
+
 from passlib.context import CryptContext
 
 from ..database.connection import get_connection
-from ..database.actions.user_actions_db import check_email_in_db, get_all_users_order_by, get_user_all_info, save_user, \
+from ..database.actions.user_actions_db import check_email_in_db, get_all_users_order_by, get_user_all_info, save_user,\
     take_hashed_password_for_user
 from ..mapping_schemas import mapping_schemas
 from ..models.mapper import MapperObj
-from ..schemas.user import UserEmail
-
+from ..schemas.user import UserEmail, UserAllInformation
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+
 
 class User:
     def __init__(self, first_name: str = None,
@@ -29,7 +31,7 @@ class User:
         self.reputation_response_from_db = None
 
 
-    def get_all_users_order_by(self, order_by='location'):
+    def get_all_users_order_by(self, order_by='location') -> List[UserAllInformation]:
         with get_connection() as connection:
             self.users_response_from_db = get_all_users_order_by(connection, order_by)
         all_users = MapperObj(self.users_response_from_db, mapping_schemas.GET_ALL_USERS_ORDER_BY, location_name=True)
@@ -50,7 +52,7 @@ class User:
             hashed_password = take_hashed_password_for_user(connection, self.email)
             return pwd_context.verify(self.password, hashed_password)
 
-    def get_user_all_info(self):
+    def get_user_all_info(self) -> UserAllInformation:
         with get_connection() as connection:
             self.users_response_from_db = get_user_all_info(connection, self.email)
         user_all_info = MapperObj(self.users_response_from_db, mapping_schemas.GET_USER_ALL_INFO, location_name=True)

@@ -9,7 +9,6 @@ class LocationIn(StrEnum):
 
 
 for key, value in MAINLY_CITIES:
-
     extend_enum(LocationIn, key, key)
 
 
@@ -29,7 +28,7 @@ class UserInformation(BaseModel):
     email: EmailStr
 
 
-class AllUserInformation(UserInformation):
+class UserAllInformation(UserInformation):
     average: str
     ratings: str
 

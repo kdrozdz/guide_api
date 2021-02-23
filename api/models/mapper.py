@@ -7,7 +7,7 @@ from api.const import get_name_of_location
 
 class MapperObj:
     created_time = "created_time"
-    average= "average"
+    average = "average"
     list_of_dict = []
     single_dict = {}
 
@@ -16,10 +16,10 @@ class MapperObj:
         self.object_schema = object_schema
         self.location_name = location_name
 
-
-    def _get_time_with_utc(self, naive_datatime_str):
+    @staticmethod
+    def _get_time_with_utc(naive_datatime_str):
         user_time_zone = pytz.timezone(os.environ['USER_TIMEZONE'])
-        naive = datetime.datetime.strptime (naive_datatime_str, '%Y-%m-%d %H:%M:%S.%f').replace(microsecond=0)
+        naive = datetime.datetime.strptime(naive_datatime_str, '%Y-%m-%d %H:%M:%S.%f').replace(microsecond=0)
         aware = user_time_zone.localize(naive)
         return aware.strftime('%Y-%m-%d %H:%M:%S')
 
@@ -49,7 +49,6 @@ class MapperObj:
         self.single_dict = self._looping_zip(self.object_schema, self.raw_data)
         if self.location_name:
             self._get_name_of_location()
-        import pdb; pdb.set_trace()
         return self.single_dict
 
     def get_list_of_dict(self):
