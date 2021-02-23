@@ -9,14 +9,14 @@ from ..schemas.answer import AnswerOut
 
 class AnnouncementListOut(BaseModel):
     location: str
-    owner: str
+    owner: EmailStr
     language: str
 
 class AnnouncementIn(BaseModel):
     text: str = Field(..., min_length=4, max_length=128)
     language: str= Field(..., min_length=4, max_length=16)
     location: LocationIn
-    owner: str
+    owner: EmailStr
 
 
 class AnnouncementUpdateIn(AnnouncementIn):

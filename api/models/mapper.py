@@ -8,13 +8,13 @@ from api.const import get_name_of_location
 class MapperObj:
     created_time = "created_time"
     average = "average"
-    list_of_dict = []
-    single_dict = {}
 
     def __init__(self, raw_data, object_schema, location_name=False):
         self.raw_data = raw_data
         self.object_schema = object_schema
         self.location_name = location_name
+        self.list_of_dict = []
+        self.single_dict = {}
 
     @staticmethod
     def _get_time_with_utc(naive_datatime_str):

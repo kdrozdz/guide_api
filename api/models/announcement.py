@@ -49,10 +49,7 @@ class Announcement:
                connection, value_location_or_owner, location_or_owner)
         if self.announcement_for_db:
             announcement_mapper_obj = MapperObj(self.announcement_for_db, GET_LIST_OF_ANNOUNCEMENT, location_name=True)
-            if len(self.announcement_for_db) > 1:
-                return announcement_mapper_obj.get_list_of_dict()
-            else:
-                return announcement_mapper_obj.get_specifict_dict()
+            return announcement_mapper_obj.get_list_of_dict()
         else:
             return []
 
