@@ -20,7 +20,7 @@ async def create_announcement(model: AnnouncementIn) -> str:
 
 
 @announcement_router.get("/get_announcement/", response_model=AnnouncementOut)
-async def get_announcement(id: str) -> List[AnnouncementOut]:
+async def get_announcement(id: int) -> List[AnnouncementOut]:
     try:
         announcement = Announcement(_id=id)
         return announcement.get_specific_announcement()
@@ -28,7 +28,8 @@ async def get_announcement(id: str) -> List[AnnouncementOut]:
         raise HTTPException(status_code=400, detail=MESSAGE_400)
 
 
-@announcement_router.post("/get_list_of_announcement/", response_model= Union[AnnouncementListOut, List[AnnouncementListOut]])
+@announcement_router.post("/get_list_of_announcement/",
+                          response_model=Union[AnnouncementListOut, List[AnnouncementListOut]])
 async def get_announcement(location_or_owner: LocationOrOwner, value: ValueLocationOrOwner) -> List[AnnouncementOut]:
     try:
         announcement = Announcement()
@@ -37,7 +38,7 @@ async def get_announcement(location_or_owner: LocationOrOwner, value: ValueLocat
         raise HTTPException(status_code=400, detail=MESSAGE_400)
 
 @announcement_router.delete("/delete_announcement/",)
-async def delete_announcement(id: str) -> str:
+async def delete_announcement(id: int) -> str:
     try:
         announcement = Announcement(_id=id)
         return announcement.delete_announcement()

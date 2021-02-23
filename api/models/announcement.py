@@ -1,15 +1,18 @@
 from datetime import datetime
 
+from pydantic import EmailStr
+
 from ..database.connection import get_connection
 from ..database.actions import announcement_actions_db, answer_actions_db
 from ..models.mapper import MapperObj
 from ..mapping_schemas.mapping_schemas import GET_SPECIFIC_ANNOUNCEMENT,\
     GET_ALL_ANSWERS_FOR_ANNOUNCEMENT, GET_LIST_OF_ANNOUNCEMENT
+from ..schemas.announcement import ValueLocationOrOwner, LocationOrOwner
 
 
 class Announcement:
-    def __init__(self, _id: str = None, text: str = None, created_time: str = None,
-                 location: str = None, owner: int = None, language: str = None):
+    def __init__(self, _id: int = None, text: str = None, created_time: str = None,
+                 location: str = None, owner: EmailStr = None, language: str = None):
 
         self.id = _id
         self.text = text
@@ -38,11 +41,12 @@ class Announcement:
             return announcement_dict
         return self.announcement_for_db
 
-    def get_list_of_announcement_location_or_owner(self, value_location_or_owner, location_or_owner):
+
+    def get_list_of_announcement_location_or_owner(self, value_location_or_owner: ValueLocationOrOwner,
+                                                   location_or_owner: LocationOrOwner):
         with get_connection() as connection:
            self.announcement_for_db = announcement_actions_db.get_list_of_announcement(
                connection, value_location_or_owner, location_or_owner)
-
         if self.announcement_for_db:
             announcement_mapper_obj = MapperObj(self.announcement_for_db, GET_LIST_OF_ANNOUNCEMENT, location_name=True)
             if len(self.announcement_for_db) > 1:
