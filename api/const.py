@@ -1,4 +1,4 @@
-MAINLY_CITIES = (
+MAINLY_CITIES = [
     ("1", "Białystok"),
     ("2", "Bydgoszcz"),
     ("3", "Gdańsk"),
@@ -17,8 +17,9 @@ MAINLY_CITIES = (
     ("16", "Warszawa"),
     ("17", "Wrocław"),
     ("18", "Zielona Góra"),
-)
-
+]
+MAINLY_CITIES_BLANK = MAINLY_CITIES.copy()
+MAINLY_CITIES_BLANK.append(("", ""))
 
 def get_name_of_location(city_id:str):
     for _id, city_name in MAINLY_CITIES:

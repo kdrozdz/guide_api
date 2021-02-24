@@ -4,7 +4,7 @@ from fastapi import APIRouter, Body, HTTPException
 from starlette import status
 
 from ..schemas.announcement import AnnouncementIn, AnnouncementOut, LocationOrOwner, ValueLocationOrOwner, \
-    AnnouncementListOut, AnnouncementUpdateIn
+    AnnouncementListOut, AnnouncementUpdateIn, LanguageLocation
 from ..models.announcement import Announcement
 from ..const import MESSAGE_400
 
@@ -40,7 +40,6 @@ async def get_list_of_announcement(location_or_owner: LocationOrOwner, value: Va
        Put value for owner like email e.g "user@example.com".
        Put value for location like str e.g "5" check register user
        """
-
     announcement = Announcement()
     return announcement.get_list_of_announcement_location_or_owner(value.value, location_or_owner.value)
 
@@ -67,4 +66,13 @@ async def delete_announcement(model: AnnouncementUpdateIn) -> any:
     except:
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=MESSAGE_400)
 
-
+@announcement_router.post("/search_announcement_by_language_location/", response_model=List[AnnouncementListOut])
+async def search_announcement_by_language_location(languageLocation: LanguageLocation) -> List[AnnouncementOut]:
+    """
+    location: like str check register user or leave empty "" (without whitespaces)
+    """
+    try:
+        announcement = Announcement(language=languageLocation.language, location=languageLocation.location)
+        return announcement.search_announcement_by_language_location()
+    except:
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=MESSAGE_400)

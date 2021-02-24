@@ -50,8 +50,20 @@ class Announcement:
         if self.announcement_for_db:
             announcement_mapper_obj = MapperObj(self.announcement_for_db, GET_LIST_OF_ANNOUNCEMENT, location_name=True)
             return announcement_mapper_obj.get_list_of_dict()
-        else:
+        return []
+
+
+    def search_announcement_by_language_location(self):
+        if not self.language and not self.location:
             return []
+
+        with get_connection() as connection:
+            self.announcement_for_db = announcement_actions_db.search_announcement_by_language_location(
+                connection, self.location, self.language)
+        if self.announcement_for_db:
+            announcement_mapper_obj = MapperObj(self.announcement_for_db, GET_LIST_OF_ANNOUNCEMENT, location_name=True)
+            return announcement_mapper_obj.get_list_of_dict()
+        return []
 
     def delete_announcement(self):
         with get_connection() as connection:
