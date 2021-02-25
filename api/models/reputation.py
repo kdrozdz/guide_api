@@ -1,15 +1,17 @@
 from datetime import datetime
 
+from pydantic import EmailStr
+
 from ..database.connection import get_connection
-from ..database.actions.reputation_actions_db import  check_user_give_feedback, save_reputation, update_feedback,\
+from ..database.actions.reputation_actions_db import check_user_give_feedback, save_reputation, update_feedback,\
     get_reputations_for_user
 from ..models.mapper import MapperObj
-from ..schemas.user import UserEmail
-from  ..mapping_schemas.mapping_schemas import GET_REPUTATIONS_FOR_USER
+from ..mapping_schemas.mapping_schemas import GET_REPUTATIONS_FOR_USER
+
 
 class Reputation:
-    def __init__(self, _id: str = None, from_user: int = None, to_user: UserEmail = None,
-                 created_time: str = None, rating: int = None, text: str = None):
+    def __init__(self, _id: int = None, from_user: EmailStr = None, to_user: EmailStr = None,
+                 created_time: str = None, rating: float = None, text: str = None):
         self.id = _id
         self.from_user = from_user
         self.to_user = to_user
@@ -42,7 +44,7 @@ class Reputation:
 
     def get_reputations(self):
         with get_connection() as connection:
-            self.answer_from_db = get_reputations_for_user(connection, self.to_user.email)
+            self.answer_from_db = get_reputations_for_user(connection, self.to_user)
 
         if self.answer_from_db:
             all_reputations = MapperObj(self.answer_from_db, GET_REPUTATIONS_FOR_USER)
