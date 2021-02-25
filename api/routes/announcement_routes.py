@@ -14,7 +14,8 @@ announcement_router = APIRouter(tags=["Announcement", ])
 @announcement_router.post("/create_announcement/",)
 async def create_announcement(model: AnnouncementIn) -> str:
     """
-    location: like str check register user
+    location: e.g "2"  (check register user route for a info about location)
+
     owner: e.g "user@example.com"
     """
     try:
@@ -37,7 +38,10 @@ async def get_announcement(id: int) -> List[AnnouncementOut]:
                           response_model=List[AnnouncementListOut])
 async def get_list_of_announcement(location_or_owner: LocationOrOwner, value: ValueLocationOrOwner) -> List[AnnouncementOut]:
     """
-       Put value for owner like email e.g "user@example.com".
+       It give you back a list of announcements assign for specific user or concrete city.
+
+       Put value for owner like email e.g "user@example.com"
+
        Put value for location like str e.g "5" check register user
        """
     announcement = Announcement()
@@ -56,6 +60,7 @@ async def delete_announcement(id: int) -> str:
 async def delete_announcement(model: AnnouncementUpdateIn) -> any:
     """
     location: like str check register user
+
     owner: e.g "user@example.com
     """
     try:
@@ -69,7 +74,10 @@ async def delete_announcement(model: AnnouncementUpdateIn) -> any:
 @announcement_router.post("/search_announcement_by_language_location/", response_model=List[AnnouncementListOut])
 async def search_announcement_by_language_location(languageLocation: LanguageLocation) -> List[AnnouncementOut]:
     """
-    location: like str check register user or leave empty "" (without whitespaces)
+    location: eg "5" or leave empty ""(without whitespaces)(check register user route for a info about location)
+    language" eg "english"
+
+    You can use both of them in this same time for a better results
     """
     try:
         announcement = Announcement(language=languageLocation.language, location=languageLocation.location)
