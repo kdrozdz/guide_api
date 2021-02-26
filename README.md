@@ -39,7 +39,7 @@ activate the venv
     
     source venv/bin/activate
 
-install all requirement
+install all requirements
     
     pip install -r requirement.txt
 
