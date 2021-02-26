@@ -21,7 +21,8 @@ MAINLY_CITIES = [
 MAINLY_CITIES_BLANK = MAINLY_CITIES.copy()
 MAINLY_CITIES_BLANK.append(("", ""))
 
-def get_name_of_location(city_id:str):
+
+def get_name_of_location(city_id: str):
     for _id, city_name in MAINLY_CITIES:
         if _id == city_id:
             return city_name
@@ -29,103 +30,103 @@ def get_name_of_location(city_id:str):
 
 MESSAGE_400 = "Check your request data"
 
-USERS_POPULATE=[
+USERS_POPULATE = [
     {
-    "first_name":"f_name_test_1",
-    "last_name":"l_name_test_1",
-    "password":"test",
-    "location":"1",
-    "email":"user1@example.com"
-     },
+        "first_name": "f_name_test_1",
+        "last_name": "l_name_test_1",
+        "password": "test",
+        "location": "1",
+        "email": "user1@example.com"
+    },
     {
-    "first_name": "f_name_test_2",
-    "last_name": "l_name_test_2",
-    "password": "test",
-    "location": "1",
-    "email": "user2@example.com"
-     },
+        "first_name": "f_name_test_2",
+        "last_name": "l_name_test_2",
+        "password": "test",
+        "location": "1",
+        "email": "user2@example.com"
+    },
     {
-    "first_name": "f_name_test_3",
-    "last_name": "l_name_test_3",
-    "password": "test",
-    "location": "1",
-    "email": "user3@example.com"
-     },
+        "first_name": "f_name_test_3",
+        "last_name": "l_name_test_3",
+        "password": "test",
+        "location": "1",
+        "email": "user3@example.com"
+    },
     {
-    "first_name": "f_name_test_4",
-    "last_name": "l_name_test_4",
-    "password": "test",
-    "location": "2",
-    "email": "user4@example.com"
-     },
+        "first_name": "f_name_test_4",
+        "last_name": "l_name_test_4",
+        "password": "test",
+        "location": "2",
+        "email": "user4@example.com"
+    },
     {
-    "first_name": "f_name_test_5",
-    "last_name": "l_name_test_5",
-    "password": "test",
-    "location": "2",
-    "email": "user5@example.com"
-     },
+        "first_name": "f_name_test_5",
+        "last_name": "l_name_test_5",
+        "password": "test",
+        "location": "2",
+        "email": "user5@example.com"
+    },
     {
-    "first_name": "f_name_test_6",
-    "last_name": "l_name_test_6",
-    "password": "test",
-    "location": "3",
-    "email": "user6@example.com"
-     }
+        "first_name": "f_name_test_6",
+        "last_name": "l_name_test_6",
+        "password": "test",
+        "location": "3",
+        "email": "user6@example.com"
+    }
 ]
 
-ANNOUNCEMENTS_POPULATE=[
+ANNOUNCEMENTS_POPULATE = [
     {
-        "text":"text_example_1",
+        "text": "text_example_1",
         "language": "english",
         "location": "1",
         "owner": "user1@example.com"
 
     },
     {
-        "text":"text_example_2",
+        "text": "text_example_2",
         "language": "norwegian",
         "location": "1",
         "owner": "user2@example.com"
 
     },
     {
-        "text":"text_example_3",
+        "text": "text_example_3",
         "language": "norwegian",
         "location": "1",
         "owner": "user1@example.com"
 
     },
     {
-        "text":"text_example_4",
+        "text": "text_example_4",
         "language": "spanish",
         "location": "1",
         "owner": "user3@example.com"
 
     },
     {
-        "text":"text_example_5",
+        "text": "text_example_5",
         "language": "engilsh",
         "location": "2",
         "owner": "user3@example.com"
 
     },
     {
-        "text":"text_example_6",
+        "text": "text_example_6",
         "language": "norwegian",
         "location": "2",
         "owner": "user4@example.com"
 
     },
     {
-        "text":"text_example_7",
+        "text": "text_example_7",
         "language": "german",
         "location": "3",
         "owner": "user5@example.com"
 
     },
     {
-        "text":"text_example_8",
+        "text": "text_example_8",
         "language": "english",
         "location": "4",
         "owner": "user6@example.com"
@@ -133,7 +134,7 @@ ANNOUNCEMENTS_POPULATE=[
     },
 ]
 
-ANSWER_POPULATE=[
+ANSWER_POPULATE = [
     {
         "text": "text_1",
         "owner": "user1@example.com",
@@ -191,53 +192,53 @@ ANSWER_POPULATE=[
     },
 ]
 
-REPUTATION_POPULATE=[
+REPUTATION_POPULATE = [
     {
         "rating": 5,
         "text": "reputation_1",
         "from_user": "user1@example.com",
-        "to_user":"user2@example.com",
+        "to_user": "user2@example.com",
     },
     {
         "rating": 7,
         "text": "reputation_2",
         "from_user": "user3@example.com",
-        "to_user":"user2@example.com",
+        "to_user": "user2@example.com",
     },
     {
         "rating": 2,
         "text": "reputation_3",
         "from_user": "user4@example.com",
-        "to_user":"user2@example.com",
+        "to_user": "user2@example.com",
     },
     {
         "rating": 7,
         "text": "reputation_4",
         "from_user": "user2@example.com",
-        "to_user":"user1@example.com",
+        "to_user": "user1@example.com",
     },
     {
         "rating": 5,
         "text": "reputation_5",
         "from_user": "user3@example.com",
-        "to_user":"user1@example.com",
+        "to_user": "user1@example.com",
     },
     {
         "rating": 8,
         "text": "reputation_6",
         "from_user": "user4@example.com",
-        "to_user":"user1@example.com",
+        "to_user": "user1@example.com",
     },
     {
         "rating": 3,
         "text": "reputation_7",
         "from_user": "user5@example.com",
-        "to_user":"user1@example.com",
+        "to_user": "user1@example.com",
     },
     {
         "rating": 6,
         "text": "reputation_8",
         "from_user": "user1@example.com",
-        "to_user":"user3@example.com",
+        "to_user": "user3@example.com",
     },
 ]
